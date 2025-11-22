@@ -1,9 +1,38 @@
 from flask import Flask, render_template, request, jsonify, redirect, url_for
-from supabase import create_client
 import os
 from datetime import datetime
 from statistics import mean, median
 from dotenv import load_dotenv
+
+# Monkeypatch: ensure gotrue/http client accepts a `proxy` kwarg.
+# Some versions of the Supabase/gotrue libraries pass `proxy=` into
+# their internal http client constructor but httpx.Client does not
+# accept `proxy` as a keyword. This causes a TypeError when deployed
+# to some environments (e.g. Render) where installed package versions
+# differ. The patch below defines a compatible SyncClient and injects
+# it into gotrue before importing Supabase.
+try:
+    from httpx import Client as HTTPXClient
+    import gotrue.http_clients as _gotrue_http_clients
+
+    class _PatchedSyncClient(HTTPXClient):
+        def __init__(self, *args, proxy=None, **kwargs):
+            # map a `proxy` kwarg to httpx `proxies`
+            if proxy is not None:
+                kwargs.setdefault("proxies", {"all": proxy})
+            super().__init__(*args, **kwargs)
+
+        def aclose(self) -> None:
+            self.close()
+
+    # Inject the patched client into gotrue module so subsequent imports use it
+    _gotrue_http_clients.SyncClient = _PatchedSyncClient
+except Exception:
+    # If monkeypatching fails for any reason, continue and let import-time
+    # errors surface when creating the Supabase client.
+    pass
+
+from supabase import create_client
 
 load_dotenv()
 
