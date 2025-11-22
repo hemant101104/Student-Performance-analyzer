@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # Student Performance Analyzer
 
 Small Flask app that uses Supabase as a backend to store `students`, `courses`, and `grades`.
@@ -73,3 +74,6 @@ If you want, I can prepare a commit that adds `.env.example` and updates `.gitig
 - Add a `LICENSE` file if you plan to share the repo publicly.
 - Consider removing the permissive RLS policies in `supabase/migrations` and replace them with tighter policies for production.
 - Add automated tests for the Flask routes.
+=======
+# Student-Performance-analyzer
+>>>>>>> 8514b1828de3391e3758a8b0678067f0db21c035
