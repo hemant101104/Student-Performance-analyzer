@@ -11,26 +11,26 @@ from dotenv import load_dotenv
 # to some environments (e.g. Render) where installed package versions
 # differ. The patch below defines a compatible SyncClient and injects
 # it into gotrue before importing Supabase.
-try:
-    from httpx import Client as HTTPXClient
-    import gotrue.http_clients as _gotrue_http_clients
+# try:
+#     from httpx import Client as HTTPXClient
+#     import gotrue.http_clients as _gotrue_http_clients
 
-    class _PatchedSyncClient(HTTPXClient):
-        def __init__(self, *args, proxy=None, **kwargs):
-            # map a `proxy` kwarg to httpx `proxies`
-            if proxy is not None:
-                kwargs.setdefault("proxies", {"all": proxy})
-            super().__init__(*args, **kwargs)
+#     class _PatchedSyncClient(HTTPXClient):
+#         def __init__(self, *args, proxy=None, **kwargs):
+#             # map a `proxy` kwarg to httpx `proxies`
+#             if proxy is not None:
+#                 kwargs.setdefault("proxies", {"all": proxy})
+#             super().__init__(*args, **kwargs)
 
-        def aclose(self) -> None:
-            self.close()
+#         def aclose(self) -> None:
+#             self.close()
 
-    # Inject the patched client into gotrue module so subsequent imports use it
-    _gotrue_http_clients.SyncClient = _PatchedSyncClient
-except Exception:
-    # If monkeypatching fails for any reason, continue and let import-time
-    # errors surface when creating the Supabase client.
-    pass
+#     # Inject the patched client into gotrue module so subsequent imports use it
+#     _gotrue_http_clients.SyncClient = _PatchedSyncClient
+# except Exception:
+#     # If monkeypatching fails for any reason, continue and let import-time
+#     # errors surface when creating the Supabase client.
+#     pass
 
 from supabase import create_client
 
