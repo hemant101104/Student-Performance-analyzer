@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %}Add Student - Student Performance Analyzer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Add New Student</h2>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="name">Student Name</label>
+            <input type="text" id="name" name="name" required placeholder="Enter student full name">
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required placeholder="student@example.com">
+        </div>
+
+        <div class="form-group">
+            <label for="enrollment_date">Enrollment Date</label>
+            <input type="date" id="enrollment_date" name="enrollment_date">
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn">Add Student</button>
+            <a href="/students" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

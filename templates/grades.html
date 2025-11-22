@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Grades - Student Performance Analyzer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="margin-bottom: 0;">Grades</h2>
+        <a href="/grades/add" class="btn">Add Grade</a>
+    </div>
+
+    {% if grades %}
+    <table>
+        <thead>
+            <tr>
+                <th>Student</th>
+                <th>Course</th>
+                <th>Score</th>
+                <th>Grade</th>
+                <th>Semester</th>
+                <th>Year</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for grade in grades %}
+            <tr>
+                <td>{{ grade.students.name }}</td>
+                <td>{{ grade.courses.code }} - {{ grade.courses.name }}</td>
+                <td>{{ grade.score }}</td>
+                <td><span class="grade-badge grade-{{ grade.grade_letter }}">{{ grade.grade_letter }}</span></td>
+                <td>{{ grade.semester }}</td>
+                <td>{{ grade.year }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color: #64748b; text-align: center; padding: 2rem;">No grades recorded yet. Add your first grade to get started.</p>
+    {% endif %}
+</div>
+{% endblock %}

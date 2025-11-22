@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+
+{% block title %}Add Grade - Student Performance Analyzer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>Add New Grade</h2>
+
+    <form method="POST">
+        <div class="form-group">
+            <label for="student_id">Student</label>
+            <select id="student_id" name="student_id" required>
+                <option value="">Select a student...</option>
+                {% for student in students %}
+                <option value="{{ student.id }}">{{ student.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="course_id">Course</label>
+            <select id="course_id" name="course_id" required>
+                <option value="">Select a course...</option>
+                {% for course in courses %}
+                <option value="{{ course.id }}">{{ course.code }} - {{ course.name }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="score">Score (0-100)</label>
+            <input type="number" id="score" name="score" required min="0" max="100" step="0.01" placeholder="e.g., 85.5">
+        </div>
+
+        <div class="form-group">
+            <label for="semester">Semester</label>
+            <select id="semester" name="semester" required>
+                <option value="">Select semester...</option>
+                <option value="Fall">Fall</option>
+                <option value="Spring">Spring</option>
+                <option value="Summer">Summer</option>
+            </select>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Year</label>
+            <input type="number" id="year" name="year" required min="2000" max="2099" value="2024">
+        </div>
+
+        <div style="display: flex; gap: 1rem;">
+            <button type="submit" class="btn">Add Grade</button>
+            <a href="/grades" class="btn btn-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

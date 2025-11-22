@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Analytics - Student Performance Analyzer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <h2>System Analytics</h2>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Students</h3>
+            <div class="value">{{ stats.total_students }}</div>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Courses</h3>
+            <div class="value">{{ stats.total_courses }}</div>
+        </div>
+
+        <div class="stat-card">
+            <h3>Total Grades</h3>
+            <div class="value">{{ stats.total_grades }}</div>
+        </div>
+
+        <div class="stat-card">
+            <h3>Overall Average</h3>
+            <div class="value">{{ stats.overall_average }}</div>
+        </div>
+    </div>
+</div>
+
+<div class="card">
+    <h3 style="margin-bottom: 1.5rem; color: #475569;">Grade Distribution</h3>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem;">
+        {% for grade, count in stats.grade_distribution.items() %}
+        <div style="text-align: center; padding: 1.5rem; background: #f8fafc; border-radius: 8px;">
+            <div style="font-size: 2.5rem; font-weight: 700; color: #1e293b; margin-bottom: 0.5rem;">{{ count }}</div>
+            <span class="grade-badge grade-{{ grade }}" style="font-size: 1rem; padding: 0.5rem 1rem;">{{ grade }}</span>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

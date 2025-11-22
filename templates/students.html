@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+
+{% block title %}Students - Student Performance Analyzer{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1.5rem;">
+        <h2 style="margin-bottom: 0;">Students</h2>
+        <a href="/students/add" class="btn">Add Student</a>
+    </div>
+
+    {% if students %}
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Enrollment Date</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for student in students %}
+            <tr>
+                <td>{{ student.name }}</td>
+                <td>{{ student.email }}</td>
+                <td>{{ student.enrollment_date }}</td>
+                <td>
+                    <a href="/student/{{ student.id }}/performance" class="btn btn-secondary" style="padding: 0.5rem 1rem; font-size: 0.875rem;">View Performance</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p style="color: #64748b; text-align: center; padding: 2rem;">No students found. Add your first student to get started.</p>
+    {% endif %}
+</div>
+{% endblock %}

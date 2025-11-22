@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="card">
+    <h2>Welcome to Student Performance Analyzer</h2>
+    <p style="margin-bottom: 2rem; color: #64748b; font-size: 1.125rem;">Track and analyze student academic performance with comprehensive analytics and insights.</p>
+
+    <div class="stats-grid">
+        <div class="stat-card">
+            <h3>Manage Students</h3>
+            <p style="margin: 1rem 0; color: #64748b;">Add and view student information</p>
+            <a href="/students" class="btn">View Students</a>
+        </div>
+
+        <div class="stat-card">
+            <h3>Manage Courses</h3>
+            <p style="margin: 1rem 0; color: #64748b;">Add and manage course catalog</p>
+            <a href="/courses" class="btn">View Courses</a>
+        </div>
+
+        <div class="stat-card">
+            <h3>Record Grades</h3>
+            <p style="margin: 1rem 0; color: #64748b;">Add and track student grades</p>
+            <a href="/grades" class="btn">View Grades</a>
+        </div>
+
+        <div class="stat-card">
+            <h3>View Analytics</h3>
+            <p style="margin: 1rem 0; color: #64748b;">Analyze performance metrics</p>
+            <a href="/analytics" class="btn">View Analytics</a>
+        </div>
+    </div>
+</div>
+{% endblock %}
